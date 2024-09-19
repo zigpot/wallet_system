@@ -14,5 +14,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+    # Routes for sign in (new session) and sign out
+  get    'login',  to: 'sessions#new'      # Display login form
+  post   'login',  to: 'sessions#create'   # Handle login (sign in)
+  delete 'logout', to: 'sessions#destroy'  # Handle logout (sign out)
   
+  # Root path for testing
+  root 'welcome#index'
 end
