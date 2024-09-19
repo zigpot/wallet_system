@@ -10,5 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 0) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_19_100920) do
+  create_table "transactions", force: :cascade do |t|
+    t.integer "source_wallet_id", null: false
+    t.integer "target_wallet_id", null: false
+    t.decimal "amount"
+    t.string "transaction_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_wallet_id"], name: "index_transactions_on_source_wallet_id"
+    t.index ["target_wallet_id"], name: "index_transactions_on_target_wallet_id"
+  end
+
+  create_table "wallets", force: :cascade do |t|
+    t.string "walletable_type", null: false
+    t.integer "walletable_id", null: false
+    t.decimal "balance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["walletable_type", "walletable_id"], name: "index_wallets_on_walletable"
+  end
+
+  add_foreign_key "transactions", "source_wallets"
+  add_foreign_key "transactions", "target_wallets"
 end
